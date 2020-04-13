@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { Question } from 'src/app/model/question';
+import { ToastService, ToastMessageType } from 'src/app/services/toast.service';
 
 
 @Component({
@@ -10,12 +11,43 @@ import { Question } from 'src/app/model/question';
 })
 export class QuestionsModalComponent implements OnInit {
 
-  private currentQuestion: number;
+  private currentIndex: number;
   @Input() private questions: Question[];
 
   constructor(private modalController: ModalController,
+    private toastService: ToastService,
     private alertController: AlertController) {
-    this.currentQuestion = 0;
+    this.currentIndex = 0;
+  }
+
+  public answer(value: string) {
+    console.log(value);
+    if (value === this.currentQuestion.RA) {
+      this.toastService.showMessage("Parabéns, você acertou!", ToastMessageType.SUCCESS);
+    } else {
+      this.toastService.showMessage("Ops, não foi dessa vez!", ToastMessageType.ERROR);
+    }
+    if (this.currentIndex < this.questions.length - 1) {
+      this.nextQuestion();
+    } else {
+      this.finished();
+    }
+  }
+
+  private finished() {
+    setTimeout(() => {
+      this.showQuestionnaireFinished();  
+    }, 1000);
+  }
+
+  private nextQuestion() {
+    setTimeout(() => {
+      this.currentIndex++;
+    }, 1000);
+  }
+
+  public get currentQuestion() {
+    return this.questions[this.currentIndex];
   }
 
   ngOnInit() {
@@ -36,6 +68,27 @@ export class QuestionsModalComponent implements OnInit {
             this.modalController.dismiss(
               {
                 'dismissed': false
+              }
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async showQuestionnaireFinished() {
+    const alert = await this.alertController.create({
+      header: 'Informação!',
+      message: 'Você <strong>completou</strong> este quiz. Você acertou X de Y questões. Seu desempenho foi de X%',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.modalController.dismiss(
+              {
+                'dismissed': true
               }
             );
           }
