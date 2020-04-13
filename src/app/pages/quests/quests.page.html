@@ -1,17 +1,25 @@
 <ion-header>
   <ion-toolbar color="secondary">
+    <ion-buttons slot="secondary">
+      <ion-button (click)="showMyQuestsModal()">
+        <ion-icon slot="icon-only" name="podium-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>
       Queasy
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-list lines="full">
-    <ion-item button *ngFor="let item of lstQuestionnaires" (click)="showActions(item)">
-      <ion-avatar slot="start">
+<ion-content [fullscreen]="true" *ngIf="lstQuestionnaires">
+  <ion-list>
+    <div class="ion-text-center ion-padding" *ngIf="lstQuestionnaires.length == 0">
+      Não há quizzes cadastrados no momento!
+    </div>
+    <ion-item lines="full" button *ngFor="let item of lstQuestionnaires" (click)="showActions(item)">
+      <ion-thumbnail slot="start">
         <img src="{{item.image}}">
-      </ion-avatar>
+      </ion-thumbnail>
       <ion-label>
         <h2>{{item.title}}</h2>
         <p>{{item.numQuest}} questões</p>

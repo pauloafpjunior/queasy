@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>
+      Minhas conquistas
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button fill="solid" color="secondary" (click)="close()">
+        Fechar
+        <ion-icon slot="end" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list *ngIf="lstMyQuests">
+    <div class="ion-text-center ion-padding" *ngIf="lstMyQuests.length == 0">
+      Você não completou quizzes ainda!
+    </div>
+    <ion-item lines="full" button *ngFor="let item of lstMyQuests">
+      <ion-thumbnail slot="start">
+        <img src="{{item.image}}">
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{item.title}}</h2>
+        <p>{{item.numRA}} de {{item.numQuest}} questões corretas ({{(item.numRA / item.numQuest) * 100}}%)</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

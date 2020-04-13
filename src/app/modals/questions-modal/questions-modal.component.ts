@@ -11,18 +11,22 @@ import { ToastService, ToastMessageType } from 'src/app/services/toast.service';
 })
 export class QuestionsModalComponent implements OnInit {
 
+  private readonly delay;
   private currentIndex: number;
+  private numRA: number;
   @Input() private questions: Question[];
 
   constructor(private modalController: ModalController,
     private toastService: ToastService,
     private alertController: AlertController) {
     this.currentIndex = 0;
+    this.numRA = 0;
+    this.delay = 750;
   }
 
   public answer(value: string) {
-    console.log(value);
     if (value === this.currentQuestion.RA) {
+      this.numRA++;
       this.toastService.showMessage("Parabéns, você acertou!", ToastMessageType.SUCCESS);
     } else {
       this.toastService.showMessage("Ops, não foi dessa vez!", ToastMessageType.ERROR);
@@ -36,14 +40,19 @@ export class QuestionsModalComponent implements OnInit {
 
   private finished() {
     setTimeout(() => {
-      this.showQuestionnaireFinished();  
-    }, 1000);
+      this.modalController.dismiss(
+        {
+          'finished': true,
+          'numRA': this.numRA
+        }
+      );
+    }, this.delay);
   }
 
   private nextQuestion() {
     setTimeout(() => {
       this.currentIndex++;
-    }, 1000);
+    }, this.delay);
   }
 
   public get currentQuestion() {
@@ -51,7 +60,6 @@ export class QuestionsModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.questions);
   }
 
   async showConfirmClose() {
@@ -67,7 +75,8 @@ export class QuestionsModalComponent implements OnInit {
           handler: () => {
             this.modalController.dismiss(
               {
-                'dismissed': false
+                'finished': false,
+                'numRA': this.numRA
               }
             );
           }
@@ -78,25 +87,5 @@ export class QuestionsModalComponent implements OnInit {
     await alert.present();
   }
 
-  async showQuestionnaireFinished() {
-    const alert = await this.alertController.create({
-      header: 'Informação!',
-      message: 'Você <strong>completou</strong> este quiz. Você acertou X de Y questões. Seu desempenho foi de X%',
-      buttons: [
-        {
-          text: 'Ok',
-          handler: () => {
-            this.modalController.dismiss(
-              {
-                'dismissed': true
-              }
-            );
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
 
 }

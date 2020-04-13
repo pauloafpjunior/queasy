@@ -4,6 +4,7 @@ import { Questionnaire } from 'src/app/model/questionnaire';
 import { ToastService, ToastMessageType } from 'src/app/services/toast.service';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { MyQuestsModalComponent } from 'src/app/modals/my-quests-modal/my-quests-modal.component';
 
 @Component({
   selector: 'app-quests',
@@ -16,6 +17,7 @@ export class QuestsPage implements OnInit {
 
   constructor(
     private queasyApiService: QueasyApiService,
+    private modalController: ModalController,
     private toastService: ToastService,
     private actionSheetController: ActionSheetController, 
     private router: Router) { }
@@ -30,6 +32,16 @@ export class QuestsPage implements OnInit {
         ToastMessageType.ERROR)
     }
   }
+
+  async showMyQuestsModal() {
+    const modal = await this.modalController.create({
+      component: MyQuestsModalComponent,
+      backdropDismiss: false
+    });
+
+    return await modal.present();
+  }
+
 
   async showActions(item: Questionnaire) {
     const actionSheet = await this.actionSheetController.create({

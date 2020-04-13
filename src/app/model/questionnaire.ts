@@ -6,5 +6,5 @@ export interface Questionnaire {
     readonly image?: string;
     readonly desc?: string;
     readonly numQuest: number;
-    readonly questions?: Question[];    
+    readonly questions?: Question[];  
 }

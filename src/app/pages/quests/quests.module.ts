@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { QuestsPageRoutingModule } from './quests-routing.module';
 
 import { QuestsPage } from './quests.page';
+import { MyQuestsModalComponent } from '../../modals/my-quests-modal/my-quests-modal.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { QuestsPage } from './quests.page';
     IonicModule,
     QuestsPageRoutingModule
   ],
-  declarations: [QuestsPage]
+  declarations: [QuestsPage, MyQuestsModalComponent],
+  entryComponents: [MyQuestsModalComponent]
 })
 export class QuestsPageModule {}
