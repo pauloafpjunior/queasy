@@ -1,0 +1,26 @@
+<ion-content color="secondary">
+  <div class="fullheight xc ion-text-center">
+    <ion-card class="ion-padding">
+      <img src="http://tineye.com/images/widgets/mona.jpg" />
+      <ion-card-header>
+        <ion-card-title><strong>Queasy</strong></ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        Aprender é divertido.
+      </ion-card-content>
+      <ion-button fill="clear" color="secondary" expand="block" [routerLink]="['/quests']">
+        <ion-icon slot="start" name="caret-forward-circle-outline"></ion-icon>
+        Começar
+      </ion-button>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="ion-text-center">
+      <small>Queasy (v.0.1) - PAPJ &copy; {{year | date: 'yyyy'}}</small>
+    </div>
+  </ion-toolbar>
+</ion-footer>

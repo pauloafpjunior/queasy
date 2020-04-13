@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>
+      Queasy
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list lines="full">
+    <ion-item button *ngFor="let item of lstQuestionnaires" (click)="showActions(item)">
+      <ion-avatar slot="start">
+        <img src="{{item.image}}">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{item.title}}</h2>
+        <p>{{item.numQuest}} questões</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
