@@ -13,20 +13,27 @@ export class LocalStorageService {
 
   async getMyQuests(): Promise<MyQuests[]> {
     return this.storage.get(this.STORAGE_KEY).then((val: any) => {
-      const items: any[] = val ? val : [];
-      return items;
-    }
-    );
+      return val ? val : [];
+    });
   }
 
-  async saveQuest(value: MyQuests): Promise<any> {
+  async getMyQuest(id: number): Promise<MyQuests> {
+    return this.storage.get(this.STORAGE_KEY).then((val: MyQuests[]) => {
+      if (!val) return null;
+      return val.find(item => item.id == id);
+    });
+  }
+
+  async updateQuest(value: MyQuests): Promise<any> {
     let lstMyQuests: MyQuests[] = await this.getMyQuests();
-    const found = lstMyQuests.find(item => item.id == value.id);
-    if (found) {
-      lstMyQuests = lstMyQuests.map(item => item.id == value.id && item.numRA < value.numRA ? value : item);
-    } else {
-      lstMyQuests.push(value);
-    }
+    lstMyQuests = lstMyQuests.map(item => item.id == value.id && item.numRA < value.numRA ? value : item);
     return this.storage.set(this.STORAGE_KEY, lstMyQuests);
   }
+
+  async addQuest(value: MyQuests): Promise<any> {
+    let lstMyQuests: MyQuests[] = await this.getMyQuests();
+    lstMyQuests.push(value);
+    return this.storage.set(this.STORAGE_KEY, lstMyQuests);
+  }
+
 }

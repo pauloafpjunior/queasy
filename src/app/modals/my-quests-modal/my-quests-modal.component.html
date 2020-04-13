@@ -17,12 +17,13 @@
     <div class="ion-text-center ion-padding" *ngIf="lstMyQuests.length == 0">
       Você não completou quizzes ainda!
     </div>
-    <ion-item lines="full" button *ngFor="let item of lstMyQuests">
+    <ion-item lines="full" *ngFor="let item of lstMyQuests">
       <ion-thumbnail slot="start">
         <img src="{{item.image}}">
       </ion-thumbnail>
       <ion-label>
         <h2>{{item.title}}</h2>
+        <p>{{item.attempts}} tentativa(s)</p>
         <p>{{item.numRA}} de {{item.numQuest}} questões corretas ({{(item.numRA / item.numQuest) * 100}}%)</p>
       </ion-label>
     </ion-item>

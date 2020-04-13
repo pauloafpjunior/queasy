@@ -5,6 +5,8 @@ import { ToastService, ToastMessageType } from 'src/app/services/toast.service';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { MyQuestsModalComponent } from 'src/app/modals/my-quests-modal/my-quests-modal.component';
+import { MyQuests } from 'src/app/model/my-quests';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-quests',
@@ -14,23 +16,31 @@ import { MyQuestsModalComponent } from 'src/app/modals/my-quests-modal/my-quests
 export class QuestsPage implements OnInit {
 
   private lstQuestionnaires: Questionnaire[];
+  private lstMyQuests: MyQuests[];
 
   constructor(
     private queasyApiService: QueasyApiService,
+    private localStorageService: LocalStorageService,
     private modalController: ModalController,
     private toastService: ToastService,
-    private actionSheetController: ActionSheetController, 
+    private actionSheetController: ActionSheetController,
     private router: Router) { }
 
-    ngOnInit() {}
+  ngOnInit() { }
 
-    async ionViewDidEnter() {
+  async ionViewDidEnter() {
     try {
       this.lstQuestionnaires = await this.queasyApiService.getQuestionnaires();
+      this.lstMyQuests = await this.localStorageService.getMyQuests();
     } catch (error) {
       this.toastService.showMessage("Ops... algo deu errado! Tente novamente mais tarde",
         ToastMessageType.ERROR)
     }
+  }
+
+  public wasDone(id: number) {
+    if (!this.lstMyQuests) return false;
+    return this.lstMyQuests.find(item => item.id == id) ? true : false;
   }
 
   async showMyQuestsModal() {

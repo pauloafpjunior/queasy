@@ -3,5 +3,6 @@ export interface MyQuests {
     readonly title: string;
     readonly image: string;
     readonly numQuest: number;
-    readonly numRA: number;
+    attempts: number;
+    numRA: number;
 }

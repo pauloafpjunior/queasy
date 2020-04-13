@@ -10,13 +10,13 @@
 </ion-header>
 <ion-content>
   <ion-card *ngIf="questionnaire">
-    <ion-card-content>
+    <ion-card-content>      
       <div class="ion-text-center">
         <h2><strong>{{questionnaire.title}}</strong></h2>
         <p>{{questionnaire.numQuest}} questões</p>
       </div>
       <img src="{{questionnaire.image}}" />
-        <div class="ion-text-justify">{{questionnaire.desc}}</div>
+      <div class="ion-text-justify">{{questionnaire.desc}}</div>
     </ion-card-content>
   </ion-card>
 </ion-content>

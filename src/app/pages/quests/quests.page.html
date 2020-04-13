@@ -24,6 +24,10 @@
         <h2>{{item.title}}</h2>
         <p>{{item.numQuest}} questões</p>
       </ion-label>
+
+      <ion-icon color="{{wasDone(item.id) ? 'success' : 'blank'}}"
+        name="checkmark-outline" slot="end"></ion-icon>
+
     </ion-item>
   </ion-list>
 </ion-content>
