@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { MyQuestsModalComponent } from 'src/app/modals/my-quests-modal/my-quests-modal.component';
 import { MyQuests } from 'src/app/model/my-quests';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { NgNavigatorShareService } from 'ng-navigator-share';
 
 @Component({
   selector: 'app-quests',
@@ -17,12 +18,14 @@ export class QuestsPage implements OnInit {
 
   lstQuestionnaires: Questionnaire[];
   lstMyQuests: MyQuests[];
+  private readonly APP_URL: string = "http://queasy-app.web.app";
 
   constructor(
     private queasyApiService: QueasyApiService,
     private localStorageService: LocalStorageService,
     private modalController: ModalController,
     private toastService: ToastService,
+    private ngNavigatorShareService: NgNavigatorShareService,
     private actionSheetController: ActionSheetController,
     private loadingController: LoadingController,
     private router: Router) { }
@@ -74,8 +77,17 @@ export class QuestsPage implements OnInit {
         {
           text: 'Compartilhar',
           icon: 'share-social-outline',
-          handler: () => {
-            // Compartilhar questionário
+          handler: async () => {
+            try {
+              const sharedResponse = await this.ngNavigatorShareService.share({
+                title: 'Queasy',
+                text:  `Venha realizar o quiz: ${item.title}`,
+                url: `${this.APP_URL}/quests/${item.id}`
+              });
+            } catch (error) {
+              this.toastService.showMessage("Não foi possível compartilhar este quiz",
+              ToastMessageType.ERROR);
+            }
           }
         },
         {

@@ -44,6 +44,8 @@ export class AttemptsPage implements OnInit {
       this.myQuest = await this.localStorageService.getMyQuest(questId);
       loading.dismiss();
     } catch (error) {
+      loading.dismiss();
+
       this.toastService.showMessage("Ops... algo deu errado! Tente novamente mais tarde",
         ToastMessageType.ERROR)
     }
