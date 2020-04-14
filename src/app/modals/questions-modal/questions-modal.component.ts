@@ -22,7 +22,7 @@ export class QuestionsModalComponent implements OnInit {
     private alertController: AlertController) {
     this.currentIndex = 0;
     this.numRA = 0;
-    this.delay = 1000;
+    this.delay = 1500;
   }
 
   public answer(value: string) {

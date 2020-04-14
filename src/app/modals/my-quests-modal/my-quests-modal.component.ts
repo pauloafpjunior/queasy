@@ -13,12 +13,13 @@ export class MyQuestsModalComponent implements OnInit {
   lstMyQuests: MyQuests[];
 
   constructor(private modalController: ModalController,
-    private localStorageService: LocalStorageService) { }
+    private localStorageService: LocalStorageService) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async ionViewDidEnter() {
-    this.lstMyQuests = await this.localStorageService.getMyQuests();    
+    this.lstMyQuests = await this.localStorageService.getMyQuests();
   }
 
   public close() {

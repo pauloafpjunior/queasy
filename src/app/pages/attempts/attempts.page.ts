@@ -99,7 +99,7 @@ export class AttemptsPage implements OnInit {
 
       const alert = await this.alertController.create({
         header: 'Informação!',
-        message: `Você <strong>completou</strong> este quiz e acertou ${numRA} de ${this.questionnaire.numQuest} questões. Seu desempenho foi de ${percentage}%!`,
+        message: `Você <strong>completou</strong> este quiz e acertou ${numRA} de ${this.questionnaire.numQuest} questões. Seu desempenho é ${percentage}%.`,
         buttons: [
           {
             text: 'Ok'

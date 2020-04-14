@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
   <ion-list lines="none"  padding>
     <ion-item-divider>
@@ -20,7 +20,6 @@
         Questão {{currentIndex + 1}} de {{questions.length}}
         <h2><strong>{{currentQuestion.question}}</strong></h2>
       </ion-label>
-      <ion-icon name="reader-outline" slot="start"></ion-icon>
     </ion-item-divider>
     <ion-item button detail (click)="answer('A')">
       <ion-label class="ion-text-wrap">
