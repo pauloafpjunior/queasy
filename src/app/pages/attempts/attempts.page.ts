@@ -26,7 +26,11 @@ export class AttemptsPage implements OnInit {
 
   async ngOnInit() {
     const questId: number = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    if (!questId) return;    
+    
     this.questionnaire = await this.queasyApiService.getQuestionnaire(questId);
+    if (!this.questionnaire) return;
+    
     this.myQuest = await this.localStorageService.getMyQuest(questId);
   }
 
