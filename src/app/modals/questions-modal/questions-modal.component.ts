@@ -11,10 +11,10 @@ import { ToastService, ToastMessageType } from 'src/app/services/toast.service';
 })
 export class QuestionsModalComponent implements OnInit {
 
-  private readonly delay;
-  private currentIndex: number;
-  private numRA: number;
-  @Input() private questions: Question[];
+  readonly delay;
+  currentIndex: number;
+  numRA: number;
+  @Input() questions: Question[];
 
   constructor(private modalController: ModalController,
     private toastService: ToastService,

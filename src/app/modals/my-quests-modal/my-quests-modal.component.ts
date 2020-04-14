@@ -10,7 +10,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class MyQuestsModalComponent implements OnInit {
 
-  private lstMyQuests: MyQuests[];
+  lstMyQuests: MyQuests[];
 
   constructor(private modalController: ModalController,
     private localStorageService: LocalStorageService) { }

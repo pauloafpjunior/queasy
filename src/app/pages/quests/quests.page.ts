@@ -15,8 +15,8 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class QuestsPage implements OnInit {
 
-  private lstQuestionnaires: Questionnaire[];
-  private lstMyQuests: MyQuests[];
+  lstQuestionnaires: Questionnaire[];
+  lstMyQuests: MyQuests[];
 
   constructor(
     private queasyApiService: QueasyApiService,
