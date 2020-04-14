@@ -4,4 +4,5 @@ Um simples PWA para encontrar e realizar quizzes.
 
 ## Releases
 
-* 0.1: versão inicial
+* 1.0.6: primeira versão em produção.
+* 0.0.1: versão inicial
