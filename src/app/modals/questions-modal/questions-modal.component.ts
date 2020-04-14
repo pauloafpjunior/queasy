@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { Question } from 'src/app/model/question';
 import { ToastService, ToastMessageType } from 'src/app/services/toast.service';
-
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 
 @Component({
   selector: 'app-questions-modal',
@@ -16,19 +16,22 @@ export class QuestionsModalComponent implements OnInit {
   numRA: number;
   @Input() questions: Question[];
 
-  constructor(private modalController: ModalController,
+  constructor(private modalController: ModalController, 
+    private nativeAudio: NativeAudio,
     private toastService: ToastService,
     private alertController: AlertController) {
     this.currentIndex = 0;
     this.numRA = 0;
-    this.delay = 750;
+    this.delay = 1000;
   }
 
   public answer(value: string) {
     if (value === this.currentQuestion.RA) {
       this.numRA++;
+      this.nativeAudio.play('success');
       this.toastService.showMessage("Parabéns, você acertou!", ToastMessageType.SUCCESS);
     } else {
+      this.nativeAudio.play('error');
       this.toastService.showMessage("Ops, não foi dessa vez!", ToastMessageType.ERROR);
     }
     if (this.currentIndex < this.questions.length - 1) {
@@ -59,7 +62,9 @@ export class QuestionsModalComponent implements OnInit {
     return this.questions[this.currentIndex];
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.nativeAudio.preloadSimple('success', 'assets/sounds/success.mp3');
+    await this.nativeAudio.preloadSimple('error', 'assets/sounds/error.mp3');
   }
 
   async showConfirmClose() {

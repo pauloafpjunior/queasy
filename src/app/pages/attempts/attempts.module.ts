@@ -8,6 +8,7 @@ import { AttemptsPageRoutingModule } from './attempts-routing.module';
 
 import { AttemptsPage } from './attempts.page';
 import { QuestionsModalComponent } from 'src/app/modals/questions-modal/questions-modal.component';
+import { SafeStylePipe } from 'src/app/pipes/safe-style.pipe';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { QuestionsModalComponent } from 'src/app/modals/questions-modal/question
     IonicModule,
     AttemptsPageRoutingModule
   ],
-  declarations: [AttemptsPage, QuestionsModalComponent],
+  declarations: [AttemptsPage, QuestionsModalComponent, SafeStylePipe],
   entryComponents: [QuestionsModalComponent]
 })
 export class AttemptsPageModule {}

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QueasyApiService } from 'src/app/services/queasy-api.service';
 import { Questionnaire } from 'src/app/model/questionnaire';
 import { ToastService, ToastMessageType } from 'src/app/services/toast.service';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { MyQuestsModalComponent } from 'src/app/modals/my-quests-modal/my-quests-modal.component';
 import { MyQuests } from 'src/app/model/my-quests';
@@ -24,15 +24,22 @@ export class QuestsPage implements OnInit {
     private modalController: ModalController,
     private toastService: ToastService,
     private actionSheetController: ActionSheetController,
+    private loadingController: LoadingController,
     private router: Router) { }
 
   ngOnInit() { }
 
   async ionViewDidEnter() {
+    const loading = await this.loadingController.create({
+      message: 'Carregando...'
+    });
     try {
+      await loading.present();
       this.lstQuestionnaires = await this.queasyApiService.getQuestionnaires();
       this.lstMyQuests = await this.localStorageService.getMyQuests();
+      loading.dismiss();
     } catch (error) {
+      loading.dismiss();
       this.toastService.showMessage("Ops... algo deu errado! Tente novamente mais tarde",
         ToastMessageType.ERROR)
     }
