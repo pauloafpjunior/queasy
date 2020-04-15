@@ -20,22 +20,22 @@
         <h2 class="ion-text-wrap"><strong>{{currentQuestion.question}}</strong></h2>
       </ion-label>
     </ion-item-divider>
-    <ion-item button detail (click)="answer('A')">
+    <ion-item button detail (click)="answer('A')" disabled={{!a}}>
       <ion-label class="ion-text-wrap">
         A. {{currentQuestion.A}}
       </ion-label>
     </ion-item>
-    <ion-item button detail (click)="answer('B')">
+    <ion-item button detail (click)="answer('B')" disabled={{!b}}>
       <ion-label class="ion-text-wrap">
         B. {{currentQuestion.B}}
       </ion-label>
     </ion-item>
-    <ion-item button detail *ngIf="currentQuestion.C" (click)="answer('C')">
+    <ion-item button detail *ngIf="currentQuestion.C" (click)="answer('C')" disabled={{!c}}>
       <ion-label class="ion-text-wrap">
         C. {{currentQuestion.C}}
       </ion-label>
     </ion-item>
-    <ion-item button detail *ngIf="currentQuestion.D" (click)="answer('D')">
+    <ion-item button detail *ngIf="currentQuestion.D" (click)="answer('D')" disabled={{!d}}>
       <ion-label class="ion-text-wrap">
         D. {{currentQuestion.D}}
       </ion-label>

@@ -14,18 +14,34 @@ export class QuestionsModalComponent implements OnInit {
   readonly delay;
   currentIndex: number;
   numRA: number;
+
+  a: boolean;
+  b: boolean;
+  c: boolean;
+  d: boolean;
+
   @Input() questions: Question[];
 
-  constructor(private modalController: ModalController, 
+  constructor(private modalController: ModalController,
     private nativeAudio: NativeAudio,
     private toastService: ToastService,
     private alertController: AlertController) {
     this.currentIndex = 0;
     this.numRA = 0;
     this.delay = 1500;
+
+    this.a = true;
+    this.b = true;
+    this.c = true;
+    this.d = true;
   }
 
   public answer(value: string) {
+    this.a = false;
+    this.b = false;
+    this.c = false;
+    this.d = false;
+
     if (value === this.currentQuestion.RA) {
       this.numRA++;
       this.nativeAudio.play('success');
@@ -55,6 +71,10 @@ export class QuestionsModalComponent implements OnInit {
   private nextQuestion() {
     setTimeout(() => {
       this.currentIndex++;
+      this.a = true;
+      this.b = true;
+      this.c = true;
+      this.d = true;
     }, this.delay);
   }
 
