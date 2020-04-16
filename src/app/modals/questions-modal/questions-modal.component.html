@@ -16,8 +16,12 @@
   <ion-list lines="none">
     <ion-item-divider>
       <ion-label>
-        <ion-text class="ion-text-center" color="secondary">Questão {{currentIndex + 1}} de {{questions.length}}</ion-text>
-        <h2 class="ion-text-wrap"><strong>{{currentQuestion.question}}</strong></h2>
+        <ion-text class="ion-text-center" color="secondary">
+          <strong>Questão {{currentIndex + 1}} de {{questions.length}}</strong>
+        </ion-text>
+        <h2 class="ion-text-wrap">
+          <div [innerHtml]="currentQuestion.question"></div>
+        </h2>
       </ion-label>
     </ion-item-divider>
     <ion-item button detail (click)="answer('A')" disabled={{!a}}>
