@@ -18,13 +18,11 @@
       Você não completou quizzes ainda!
     </div>
     <ion-item lines="full" *ngFor="let item of lstMyQuests">
-      <ion-thumbnail slot="start">
-        <img src="{{item.image}}">
-      </ion-thumbnail>
-      <ion-label>
+      <ion-label class="ion-text-wrap">
         <h2>{{item.title}}</h2>
         <p>{{item.attempts}} tentativa(s)</p>
-        <p>{{item.numRA}} de {{item.numQuest}} questões corretas ({{((item.numRA / item.numQuest) * 100) | number : '1.0-0'}}%)</p>
+        <p>{{item.numRA}} de {{item.numQuest}} questões corretas
+          ({{((item.numRA / item.numQuest) * 100) | number : '1.0-0'}}%)</p>
       </ion-label>
     </ion-item>
   </ion-list>
