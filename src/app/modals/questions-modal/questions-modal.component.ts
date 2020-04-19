@@ -100,7 +100,7 @@ export class QuestionsModalComponent implements OnInit {
           handler: () => {
             this.modalController.dismiss(
               {
-                'finished': false,
+                'finished': true,
                 'numRA': this.numRA
               }
             );
@@ -111,6 +111,4 @@ export class QuestionsModalComponent implements OnInit {
 
     await alert.present();
   }
-
-
 }

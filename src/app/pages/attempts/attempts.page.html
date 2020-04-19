@@ -16,11 +16,11 @@
         <p>{{questionnaire.numQuest}} questões</p>
         <img src="{{questionnaire.image}}" />
       </div>
-      <ion-button color="success" expand="block" (click)="showQuestionsModal()">Iniciar</ion-button>
       <div class="ion-text-left">
-        <br />
         <div [innerHtml]="questionnaire.desc | safeStyle"></div>
+        <br/>
       </div>
+      <ion-button color="success" expand="block" (click)="showConfirmStart()">Iniciar</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

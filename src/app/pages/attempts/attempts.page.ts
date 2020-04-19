@@ -115,4 +115,25 @@ export class AttemptsPage implements OnInit {
     }
   }
 
+
+  async showConfirmStart() {
+    const alert = await this.alertController.create({
+      header: 'Atenção!',
+      message: 'Deseja realmente iniciar uma <strong>tentativa</strong> para este quiz?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel'
+        }, {
+          text: 'Sim',
+          handler: () => {
+            this.showQuestionsModal();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 }
