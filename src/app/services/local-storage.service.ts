@@ -26,7 +26,7 @@ export class LocalStorageService {
 
   async updateQuest(value: MyQuests): Promise<any> {
     let lstMyQuests: MyQuests[] = await this.getMyQuests();
-    lstMyQuests = lstMyQuests.map(item => item.id == value.id && item.numRA < value.numRA ? value : item);
+    lstMyQuests = lstMyQuests.map(item => item.id == value.id ? value : item);
     return this.storage.set(this.STORAGE_KEY, lstMyQuests);
   }
 

@@ -30,7 +30,9 @@ export class AttemptsPage implements OnInit {
     private nativeAudio: NativeAudio,
     private alertController: AlertController) { }
 
-  async ngOnInit() {
+  ngOnInit() { }
+
+  async ionViewDidEnter() {
     const loading = await this.loadingController.create({
       message: 'Carregando...'
     });
@@ -69,6 +71,30 @@ export class AttemptsPage implements OnInit {
     return await modal.present();
   }
 
+  private async saveAttempt() {
+    if (!this.myQuest) {
+      this.myQuest = {
+        id: this.questionnaire.id,
+        title: this.questionnaire.title,
+        image: this.questionnaire.image,
+        numQuest: this.questionnaire.numQuest,
+        numRA: 0,
+        attempts: 1
+      };
+      return this.localStorageService.addQuest(this.myQuest);
+    } else {
+      this.myQuest.attempts += 1;
+      return this.localStorageService.updateQuest(this.myQuest);
+    }
+  }
+
+  private async saveData(numRA: number) {
+    if (this.myQuest.numRA < numRA) {
+      this.myQuest.numRA = numRA;
+      return this.localStorageService.updateQuest(this.myQuest);
+    }
+  }
+
   async showQuestionnaireFinished(numRA: number) {
     const loading = await this.loadingController.create({
       message: 'Carregando...'
@@ -76,27 +102,12 @@ export class AttemptsPage implements OnInit {
 
     try {
       await loading.present();
-
-      const percentage = formatNumber((numRA / this.questionnaire.numQuest) * 100, this.locale, '1.0-0');
-      if (!this.myQuest) {
-        this.myQuest = {
-          id: this.questionnaire.id,
-          title: this.questionnaire.title,
-          image: this.questionnaire.image,
-          numQuest: this.questionnaire.numQuest,
-          numRA: numRA,
-          attempts: 1
-        };
-        await this.localStorageService.addQuest(this.myQuest);
-      } else {
-        this.myQuest.attempts++;
-        this.myQuest.numRA = this.myQuest.numRA < numRA ? numRA : this.myQuest.numRA;
-        await this.localStorageService.updateQuest(this.myQuest);
-      }
-
+      await this.saveData(numRA);
       loading.dismiss();
+
       this.nativeAudio.play('finished');
 
+      const percentage = formatNumber((numRA / this.questionnaire.numQuest) * 100, this.locale, '1.0-0');
       const alert = await this.alertController.create({
         header: 'Informação!',
         message: `Você <strong>completou</strong> este quiz e acertou ${numRA} de ${this.questionnaire.numQuest} questões. Seu desempenho é ${percentage}%.`,
@@ -126,7 +137,8 @@ export class AttemptsPage implements OnInit {
           role: 'cancel'
         }, {
           text: 'Sim',
-          handler: () => {
+          handler: async () => {
+            await this.saveAttempt();
             this.showQuestionsModal();
           }
         }
