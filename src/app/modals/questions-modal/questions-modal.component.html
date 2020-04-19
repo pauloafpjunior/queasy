@@ -20,28 +20,28 @@
           <strong>Questão {{currentIndex + 1}} de {{questions.length}}</strong>
         </ion-text>
         <h2 class="ion-text-wrap">
-          <div [innerHtml]="currentQuestion.question"></div>
+          <div [innerHtml]="questions[currentIndex].question"></div>
         </h2>
       </ion-label>
     </ion-item-divider>
     <ion-item button detail (click)="answer('A')" disabled={{!a}}>
       <ion-label class="ion-text-wrap">
-        A. {{currentQuestion.A}}
+        A. {{questions[currentIndex].A}}
       </ion-label>
     </ion-item>
     <ion-item button detail (click)="answer('B')" disabled={{!b}}>
       <ion-label class="ion-text-wrap">
-        B. {{currentQuestion.B}}
+        B. {{questions[currentIndex].B}}
       </ion-label>
     </ion-item>
-    <ion-item button detail *ngIf="currentQuestion.C" (click)="answer('C')" disabled={{!c}}>
+    <ion-item button detail *ngIf="questions[currentIndex].C" (click)="answer('C')" disabled={{!c}}>
       <ion-label class="ion-text-wrap">
-        C. {{currentQuestion.C}}
+        C. {{questions[currentIndex].C}}
       </ion-label>
     </ion-item>
-    <ion-item button detail *ngIf="currentQuestion.D" (click)="answer('D')" disabled={{!d}}>
+    <ion-item button detail *ngIf="questions[currentIndex].D" (click)="answer('D')" disabled={{!d}}>
       <ion-label class="ion-text-wrap">
-        D. {{currentQuestion.D}}
+        D. {{questions[currentIndex].D}}
       </ion-label>
     </ion-item>
 

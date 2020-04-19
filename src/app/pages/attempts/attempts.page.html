@@ -18,9 +18,13 @@
       </div>
       <div class="ion-text-left">
         <div [innerHtml]="questionnaire.desc | safeStyle"></div>
-        <br/>
+        <br />
       </div>
-      <ion-button color="success" expand="block" (click)="showConfirmStart()">Iniciar</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button color="success" expand="block" (click)="showConfirmStart()">Iniciar</ion-button>
+  </ion-toolbar>
+</ion-footer>
