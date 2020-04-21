@@ -3,10 +3,10 @@
     <ion-title>
       Tentativas
     </ion-title>
+    <ion-progress-bar color="warning" value="{{progress}}"></ion-progress-bar>
     <ion-buttons slot="primary">
       <ion-button fill="solid" color="secondary" (click)="showConfirmClose()">
-        Fechar
-        <ion-icon slot="end" name="close"></ion-icon>
+        <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

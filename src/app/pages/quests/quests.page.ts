@@ -76,7 +76,7 @@ export class QuestsPage implements OnInit {
         },
         {
           text: 'Compartilhar',
-          icon: 'share-social-outline',
+          icon: 'arrow-redo-outline',
           handler: async () => {
             try {
               const sharedResponse = await this.ngNavigatorShareService.share({

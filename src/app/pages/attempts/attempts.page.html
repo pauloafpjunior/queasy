@@ -23,8 +23,8 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
-<ion-footer class="ion-no-border">
+<ion-footer class="ion-no-border" *ngIf="questionnaire">
   <ion-toolbar>
-    <ion-button color="success" expand="block" (click)="showConfirmStart()">Iniciar</ion-button>
+    <ion-button color="warning" expand="block" (click)="showConfirmStart()">Iniciar</ion-button>
   </ion-toolbar>
 </ion-footer>

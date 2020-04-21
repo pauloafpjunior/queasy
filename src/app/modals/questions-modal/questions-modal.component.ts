@@ -20,6 +20,17 @@ export class QuestionsModalComponent implements OnInit {
   c: boolean;
   d: boolean;
 
+  successMessages: string[] = [
+    "Certo!",
+    "Excelente!",
+    "Bom trabalho!",
+    "Muito bem!",
+    "Fez bonito!",
+    "Ótimo trabalho!",
+    "É isso aí!",
+    "Boa!"
+  ];
+
   @Input() questions: Question[];
 
   constructor(private modalController: ModalController,
@@ -36,6 +47,16 @@ export class QuestionsModalComponent implements OnInit {
     this.d = true;
   }
 
+  public get progress(): number {
+    return ((this.currentIndex + 1) / this.questions.length);
+  }
+
+  public getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
   public answer(value: string) {
     this.a = false;
     this.b = false;
@@ -45,7 +66,7 @@ export class QuestionsModalComponent implements OnInit {
     if (value === this.currentQuestion.RA) {
       this.numRA++;
       this.nativeAudio.play('success');
-      this.toastService.showMessage("Parabéns, você acertou!", ToastMessageType.SUCCESS);
+      this.toastService.showMessage(this.successMessages[this.getRandomInt(0, this.successMessages.length)], ToastMessageType.SUCCESS);
     } else {
       this.nativeAudio.play('error');
       this.toastService.showMessage("Ops, não foi dessa vez!", ToastMessageType.ERROR);
@@ -88,27 +109,37 @@ export class QuestionsModalComponent implements OnInit {
   }
 
   async showConfirmClose() {
-    const alert = await this.alertController.create({
-      header: 'Atenção!',
-      message: 'Deseja sair <strong>sem terminar</strong> este quiz?',
-      buttons: [
+    if (this.currentIndex == 0) {
+      this.modalController.dismiss(
         {
-          text: 'Não',
-          role: 'cancel'
-        }, {
-          text: 'Sim',
-          handler: () => {
-            this.modalController.dismiss(
-              {
-                'finished': true,
-                'numRA': this.numRA
-              }
-            );
-          }
+          'finished': false,
+          'numRA': this.numRA
         }
-      ]
-    });
+      );
+    } else {
 
-    await alert.present();
+      const alert = await this.alertController.create({
+        header: 'Atenção!',
+        message: 'Deseja sair <strong>sem terminar</strong> este quiz?',
+        buttons: [
+          {
+            text: 'Não',
+            role: 'cancel'
+          }, {
+            text: 'Sim',
+            handler: () => {
+              this.modalController.dismiss(
+                {
+                  'finished': true,
+                  'numRA': this.numRA
+                }
+              );
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    }
   }
 }
