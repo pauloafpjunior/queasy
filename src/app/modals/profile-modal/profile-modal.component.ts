@@ -27,5 +27,16 @@ export class ProfileModalComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-
+  public isItEvangelist() {
+    return this.myProfile.numSharing > 0;
+  }
+  public isItTalentous() {
+    return this.myProfile.numTalents >= 50;
+  }
+  public isItPerseverant() {
+    return this.myProfile.numQuizzes >= 3;
+  }
+  public isItOnTarget() {
+    return this.myProfile.num100percentage > 0;
+  }
 }

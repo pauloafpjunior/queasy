@@ -13,11 +13,53 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list *ngIf="myProfile">
-    <ion-item lines="full">
+  <ion-list *ngIf="myProfile" lines="full">
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src="../../../assets/images/target.png">
+      </ion-thumbnail>
       <ion-label class="ion-text-wrap">
-        <h2>{{myProfile.numQuizzes}}</h2>
+        <h2>No Alvo</h2>
+        <p>Acertou 100% das questões de um quiz.</p>
       </ion-label>
+      <ion-icon *ngIf="isItOnTarget()" color="success" name="checkmark-done-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src="../../../assets/images/perseverance.jpg">
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">
+        <h2>Perseverante</h2>
+        <p>Finalizou 3 quizzes.</p>
+      </ion-label>
+      <ion-icon *ngIf="isItPerseverant()" color="success" name="checkmark-done-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src="../../../assets/images/talents.png">
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">
+        <h2>Talentoso</h2>
+        <p>Ganhou 50 talentos.</p>
+      </ion-label>
+      <ion-icon *ngIf="isItTalentous()" color="success" name="checkmark-done-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src="../../../assets/images/evangelist.jpg">
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">
+        <h2>Evangelista</h2>
+        <p>Compartilhou pelo menos um quiz.</p>
+      </ion-label>
+      <ion-icon *ngIf="isItEvangelist()" color="success" name="checkmark-done-outline" slot="end"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>
+<ion-footer *ngIf="myProfile">
+  <ion-toolbar>
+    <div class="ion-text-center">
+      <small>Você possui <strong>{{myProfile.numTalents}}</strong> talentos.</small>
+    </div>
+  </ion-toolbar>
+</ion-footer>

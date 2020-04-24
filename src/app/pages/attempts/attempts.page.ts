@@ -80,8 +80,7 @@ export class AttemptsPage implements OnInit {
         image: this.questionnaire.image,
         numQuest: this.questionnaire.numQuest,
         numRA: 0,
-        attempts: 1,
-        talents: 0
+        attempts: 1
       };
       return this.localStorageService.addQuest(this.myQuest);
     } else {
@@ -104,9 +103,6 @@ export class AttemptsPage implements OnInit {
   private async saveData(numRA: number) {
     if (this.myQuest.numRA < numRA) {
       this.myQuest.numRA = numRA;
-    }
-    if (this.myQuest.attempts == 1) {
-      this.myQuest.talents = this.getTalents(numRA);
     }
 
     return this.localStorageService.updateQuest(this.myQuest);

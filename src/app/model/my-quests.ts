@@ -5,5 +5,4 @@ export interface MyQuests {
     readonly numQuest: number;
     attempts: number;
     numRA: number;
-    talents: number;
 }
