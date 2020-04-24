@@ -4,8 +4,9 @@
       <ion-button (click)="showMyQuestsModal()">
         <ion-icon slot="icon-only" name="trophy-outline"></ion-icon>
       </ion-button>
-      <ion-button (click)="showProfileModal()">
-        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      <ion-button (click)="showProfileModal()" *ngIf="myProfile">
+        <ion-icon slot="start" name="person-outline"></ion-icon>
+        {{myProfile.numTalents}}
       </ion-button>
     </ion-buttons>
     <ion-title>
