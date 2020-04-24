@@ -22,8 +22,15 @@
         <h2>{{item.title}}</h2>
         <p>{{item.attempts}} tentativa(s) - {{item.numRA}}/{{item.numQuest}} questões corretas
           ({{((item.numRA / item.numQuest) * 100) | number : '1.0-0'}}%)</p>
-        <p>Você <strong> ganhou {{item.talents}} talentos</strong></p>
+        <p>Você ganhou <strong>{{item.talents}} talentos</strong></p>
       </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
+<ion-footer *ngIf="talents">
+  <ion-toolbar>
+    <div class="ion-text-center">
+      <small>Você possui <strong>{{talents}}</strong> talentos.</small>
+    </div>
+  </ion-toolbar>
+</ion-footer>

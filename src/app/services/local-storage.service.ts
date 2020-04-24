@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MyQuests } from '../model/my-quests';
+import { Profile } from '../model/profile';
 import { Storage } from '@ionic/storage';
 
 @Injectable({
@@ -8,12 +9,25 @@ import { Storage } from '@ionic/storage';
 export class LocalStorageService {
 
   private readonly STORAGE_KEY: string = "MY_QUESTS";
+  private readonly PROFILE_KEY: string = "MY_PROFILE";
 
   constructor(private storage: Storage) { }
 
   async getMyQuests(): Promise<MyQuests[]> {
     return this.storage.get(this.STORAGE_KEY).then((val: any) => {
       return val ? val : [];
+    });
+  }
+
+  async getMyProfile(): Promise<Profile> {
+    return this.storage.get(this.PROFILE_KEY).then((val: any) => {
+      return val ? val : 
+      {
+        numQuizzes: 0,
+        numSharing: 0,
+        num100percentage: 0,
+        numTalents: 0
+      };
     });
   }
 
@@ -36,4 +50,7 @@ export class LocalStorageService {
     return this.storage.set(this.STORAGE_KEY, lstMyQuests);
   }
 
+  async saveProfile(value: Profile): Promise<any> {
+    return this.storage.set(this.PROFILE_KEY, value);
+  }
 }

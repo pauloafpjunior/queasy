@@ -11,15 +11,20 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 export class MyQuestsModalComponent implements OnInit {
 
   lstMyQuests: MyQuests[];
+  talents: number;
 
   constructor(private modalController: ModalController,
     private localStorageService: LocalStorageService) {
+      this.talents = 0;
   }
 
   ngOnInit() { }
 
   async ionViewDidEnter() {
     this.lstMyQuests = await this.localStorageService.getMyQuests();
+    this.lstMyQuests.forEach((item: MyQuests) => {
+      this.talents = this.talents + item.talents;
+    });
   }
 
   public close() {

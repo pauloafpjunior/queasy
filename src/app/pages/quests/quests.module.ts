@@ -8,6 +8,7 @@ import { QuestsPageRoutingModule } from './quests-routing.module';
 
 import { QuestsPage } from './quests.page';
 import { MyQuestsModalComponent } from '../../modals/my-quests-modal/my-quests-modal.component';
+import { ProfileModalComponent } from 'src/app/modals/profile-modal/profile-modal.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { MyQuestsModalComponent } from '../../modals/my-quests-modal/my-quests-m
     IonicModule,
     QuestsPageRoutingModule
   ],
-  declarations: [QuestsPage, MyQuestsModalComponent],
-  entryComponents: [MyQuestsModalComponent]
+  declarations: [QuestsPage, MyQuestsModalComponent, ProfileModalComponent],
+  entryComponents: [MyQuestsModalComponent, ProfileModalComponent]
 })
 export class QuestsPageModule {}

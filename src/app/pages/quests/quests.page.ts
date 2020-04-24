@@ -8,6 +8,8 @@ import { MyQuestsModalComponent } from 'src/app/modals/my-quests-modal/my-quests
 import { MyQuests } from 'src/app/model/my-quests';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { NgNavigatorShareService } from 'ng-navigator-share';
+import { Profile } from 'src/app/model/profile';
+import { ProfileModalComponent } from 'src/app/modals/profile-modal/profile-modal.component';
 
 @Component({
   selector: 'app-quests',
@@ -18,6 +20,8 @@ export class QuestsPage implements OnInit {
 
   lstQuestionnaires: Questionnaire[];
   lstMyQuests: MyQuests[];
+  myProfile: Profile;
+
   private readonly APP_URL: string = "http://queasy-app.web.app";
 
   constructor(
@@ -40,6 +44,8 @@ export class QuestsPage implements OnInit {
       await loading.present();
       this.lstQuestionnaires = await this.queasyApiService.getQuestionnaires();
       this.lstMyQuests = await this.localStorageService.getMyQuests();
+      this.myProfile = await this.localStorageService.getMyProfile();
+
       loading.dismiss();
     } catch (error) {
       loading.dismiss();
@@ -62,6 +68,14 @@ export class QuestsPage implements OnInit {
     return await modal.present();
   }
 
+  async showProfileModal() {
+    const modal = await this.modalController.create({
+      component: ProfileModalComponent,
+      backdropDismiss: false
+    });
+
+    return await modal.present();
+  }
 
   async showActions(item: Questionnaire) {
     const actionSheet = await this.actionSheetController.create({
@@ -81,12 +95,14 @@ export class QuestsPage implements OnInit {
             try {
               const sharedResponse = await this.ngNavigatorShareService.share({
                 title: 'Queasy',
-                text:  `Venha realizar o quiz: ${item.title}`,
+                text: `Venha realizar o quiz: ${item.title}`,
                 url: `${this.APP_URL}/quests/${item.id}`
               });
+              this.myProfile.numSharing++;
+              await this.localStorageService.saveProfile(this.myProfile);
             } catch (error) {
               this.toastService.showMessage("Não foi possível compartilhar este quiz",
-              ToastMessageType.ERROR);
+                ToastMessageType.ERROR);
             }
           }
         },

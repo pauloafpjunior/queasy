@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>
+      Perfil
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button fill="solid" color="secondary" (click)="close()">
+        Fechar
+        <ion-icon slot="end" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list *ngIf="myProfile">
+    <ion-item lines="full">
+      <ion-label class="ion-text-wrap">
+        <h2>{{myProfile.numQuizzes}}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
