@@ -3,4 +3,5 @@ export interface Profile {
     numSharing: number;
     num100percentage: number;
     numTalents: number;
+    isSoundOn: boolean;
 }

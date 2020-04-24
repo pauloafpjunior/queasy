@@ -129,7 +129,9 @@ export class AttemptsPage implements OnInit {
       await this.saveData(numRA);
       loading.dismiss();
 
-      this.nativeAudio.play('finished');
+      if (this.myProfile.isSoundOn) {
+        this.nativeAudio.play('finished');
+      }
 
       let msg: string;
       msg = `Você <strong>completou</strong> este quiz e acertou ${numRA} de ${this.questionnaire.numQuest} questões.`;

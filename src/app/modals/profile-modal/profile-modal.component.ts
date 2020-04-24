@@ -19,6 +19,10 @@ export class ProfileModalComponent implements OnInit {
   ngOnInit() {
   }
 
+  async saveProfile() {
+    this.localStorageService.saveProfile(this.myProfile);
+  }
+
   async ionViewDidEnter() {
     this.myProfile = await this.localStorageService.getMyProfile();
   }

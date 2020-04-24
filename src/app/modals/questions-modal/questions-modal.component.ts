@@ -3,6 +3,8 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { Question } from 'src/app/model/question';
 import { ToastService, ToastMessageType } from 'src/app/services/toast.service';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { Profile } from 'src/app/model/profile';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-questions-modal',
@@ -11,9 +13,10 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
 })
 export class QuestionsModalComponent implements OnInit {
 
-  readonly delay;
+  readonly delay: number;
   currentIndex: number;
   numRA: number;
+  myProfile: Profile;
 
   a: boolean;
   b: boolean;
@@ -36,6 +39,7 @@ export class QuestionsModalComponent implements OnInit {
   constructor(private modalController: ModalController,
     private nativeAudio: NativeAudio,
     private toastService: ToastService,
+    private localStorageService: LocalStorageService,
     private alertController: AlertController) {
     this.currentIndex = 0;
     this.numRA = 0;
@@ -65,10 +69,14 @@ export class QuestionsModalComponent implements OnInit {
 
     if (value === this.currentQuestion.RA) {
       this.numRA++;
-      this.nativeAudio.play('success');
+      if (this.myProfile.isSoundOn) {
+        this.nativeAudio.play('success');
+      }
       this.toastService.showMessage(this.successMessages[this.getRandomInt(0, this.successMessages.length)], ToastMessageType.SUCCESS);
     } else {
-      this.nativeAudio.play('error');
+      if (this.myProfile.isSoundOn) {
+        this.nativeAudio.play('error');
+      }
       this.toastService.showMessage("Ops, não foi dessa vez!", ToastMessageType.ERROR);
     }
     if (this.currentIndex < this.questions.length - 1) {
@@ -106,6 +114,7 @@ export class QuestionsModalComponent implements OnInit {
   async ngOnInit() {
     await this.nativeAudio.preloadSimple('success', 'assets/sounds/success.mp3');
     await this.nativeAudio.preloadSimple('error', 'assets/sounds/error.mp3');
+    this.myProfile = await this.localStorageService.getMyProfile();
   }
 
   async showConfirmClose() {
