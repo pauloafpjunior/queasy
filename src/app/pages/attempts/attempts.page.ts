@@ -79,7 +79,8 @@ export class AttemptsPage implements OnInit {
         image: this.questionnaire.image,
         numQuest: this.questionnaire.numQuest,
         numRA: 0,
-        attempts: 1
+        attempts: 1,
+        talents: 0
       };
       return this.localStorageService.addQuest(this.myQuest);
     } else {
@@ -88,11 +89,26 @@ export class AttemptsPage implements OnInit {
     }
   }
 
+  private getTalents(numRA: number) {
+    //const percentage = formatNumber((numRA / this.questionnaire.numQuest) * 100, this.locale, '1.0-0');
+    const percentage: number = (numRA / this.questionnaire.numQuest) * 100;
+
+    if (percentage == 0) return 0;
+    else if (percentage < 60) return 5;
+    else if (percentage < 80) return 10;
+    else if (percentage < 100) return 15;
+    else return 20;    
+  }
+
   private async saveData(numRA: number) {
     if (this.myQuest.numRA < numRA) {
       this.myQuest.numRA = numRA;
-      return this.localStorageService.updateQuest(this.myQuest);
     }
+    if (this.myQuest.attempts == 1) {
+      this.myQuest.talents = this.getTalents(numRA);
+    }
+
+    return this.localStorageService.updateQuest(this.myQuest);
   }
 
   async showQuestionnaireFinished(numRA: number) {
@@ -107,10 +123,16 @@ export class AttemptsPage implements OnInit {
 
       this.nativeAudio.play('finished');
 
-      const percentage = formatNumber((numRA / this.questionnaire.numQuest) * 100, this.locale, '1.0-0');
+      let msg: string;
+      msg = `Você <strong>completou</strong> este quiz e acertou ${numRA} de ${this.questionnaire.numQuest} questões.`;
+
+      if (this.myQuest.attempts == 1) {
+        msg = msg +  `Você <strong>ganhou ${this.getTalents(numRA)} talentos</strong>.`;
+      }
+
       const alert = await this.alertController.create({
         header: 'Informação!',
-        message: `Você <strong>completou</strong> este quiz e acertou ${numRA} de ${this.questionnaire.numQuest} questões. Seu desempenho é ${percentage}%.`,
+        message: msg,
         buttons: [
           {
             text: 'Ok'
