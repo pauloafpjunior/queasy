@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar color="secondary">
     <ion-buttons slot="secondary">
-      <ion-button (click)="showMyQuestsModal()">
-        <ion-icon slot="icon-only" name="list-outline"></ion-icon>
+      <ion-button (click)="showConfirmStartPractice()" *ngIf="myProfile" disabled={{!myProfile.canPractice}}>
+        <ion-icon slot="icon-only" name="barbell-outline"></ion-icon>
       </ion-button>
       <ion-button (click)="showProfileModal()" *ngIf="myProfile">
         <ion-icon slot="start" name="person-outline"></ion-icon>
@@ -35,11 +35,3 @@
     </ion-item>
   </ion-list>
 </ion-content>
-<ion-footer class="ion-no-border" *ngIf="myProfile">
-  <ion-toolbar>
-    <ion-button color="warning" (click)="showConfirmStartPractice()" expand="block" disabled={{!myProfile.canPractice}}>
-      Praticar
-      <ion-icon slot="start" name="barbell-outline"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
-</ion-footer>

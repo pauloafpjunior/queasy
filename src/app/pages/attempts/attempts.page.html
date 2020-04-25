@@ -3,6 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="quests"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="secondary" *ngIf="questionnaire">
+      <ion-button (click)="showConfirmStart()">
+        <ion-icon slot="start" name="play-circle-outline"></ion-icon>
+        Iniciar
+      </ion-button>
+    </ion-buttons>
     <ion-title>
       Queasy
     </ion-title>
@@ -10,21 +16,15 @@
 </ion-header>
 <ion-content>
   <ion-card *ngIf="questionnaire">
+    <ion-card-header class="ion-text-center ion-text-wrap">
+      <ion-card-title><strong>{{questionnaire.title}}</strong></ion-card-title>
+      <ion-card-subtitle>{{questionnaire.numQuest}} questões</ion-card-subtitle>
+    </ion-card-header>
     <ion-card-content>
-      <div class="ion-text-center ion-text-wrap">
-        <h2><strong>{{questionnaire.title}}</strong></h2>
-        <p>{{questionnaire.numQuest}} questões</p>
-        <img src="{{questionnaire.image}}" />
-      </div>
-      <div class="ion-text-left">
+      <div class="ion-text-left ion-text-wrap">
         <div [innerHtml]="questionnaire.desc | safeStyle"></div>
         <br />
       </div>
     </ion-card-content>
   </ion-card>
 </ion-content>
-<ion-footer class="ion-no-border" *ngIf="questionnaire">
-  <ion-toolbar>
-    <ion-button color="warning" expand="block" (click)="showConfirmStart()">Iniciar</ion-button>
-  </ion-toolbar>
-</ion-footer>
