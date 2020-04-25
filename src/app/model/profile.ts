@@ -4,4 +4,5 @@ export interface Profile {
     num100percentage: number;
     numTalents: number;
     isSoundOn: boolean;
+    canPractice: boolean;
 }

@@ -109,6 +109,7 @@ export class AttemptsPage implements OnInit {
   }
 
   private async saveProfile(numRA: number, numTalents?: number) {
+    this.myProfile.canPractice = true;
     this.myProfile.numQuizzes++;
     if (numRA == this.questionnaire.numQuest) {
       this.myProfile.num100percentage++;

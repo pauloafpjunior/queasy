@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QueasyApiService } from 'src/app/services/queasy-api.service';
 import { Questionnaire } from 'src/app/model/questionnaire';
 import { ToastService, ToastMessageType } from 'src/app/services/toast.service';
-import { ActionSheetController, ModalController, LoadingController } from '@ionic/angular';
+import { ActionSheetController, ModalController, LoadingController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { MyQuestsModalComponent } from 'src/app/modals/my-quests-modal/my-quests-modal.component';
 import { MyQuests } from 'src/app/model/my-quests';
@@ -32,6 +32,7 @@ export class QuestsPage implements OnInit {
     private ngNavigatorShareService: NgNavigatorShareService,
     private actionSheetController: ActionSheetController,
     private loadingController: LoadingController,
+    private alertController: AlertController,
     private router: Router) { }
 
   ngOnInit() { }
@@ -52,6 +53,25 @@ export class QuestsPage implements OnInit {
       this.toastService.showMessage("Ops... algo deu errado! Tente novamente mais tarde",
         ToastMessageType.ERROR)
     }
+  }
+
+  async showConfirmStartPractice() {
+    const alert = await this.alertController.create({
+      header: 'Atenção!',
+      message: 'Deseja realmente iniciar um <strong>treino</strong>?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel'
+        }, {
+          text: 'Sim',
+          handler: async () => {
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   public wasDone(id: number) {

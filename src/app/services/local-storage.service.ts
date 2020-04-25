@@ -27,7 +27,8 @@ export class LocalStorageService {
         numSharing: 0,
         num100percentage: 0,
         numTalents: 0,
-        isSoundOn: true
+        isSoundOn: true,
+        canPractice: true
       };
     });
   }

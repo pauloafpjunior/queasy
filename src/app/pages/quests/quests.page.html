@@ -35,3 +35,11 @@
     </ion-item>
   </ion-list>
 </ion-content>
+<ion-footer class="ion-no-border" *ngIf="myProfile">
+  <ion-toolbar>
+    <ion-button color="warning" (click)="showConfirmStartPractice()" expand="block" disabled={{!myProfile.canPractice}}>
+      Praticar
+      <ion-icon slot="start" name="barbell-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
