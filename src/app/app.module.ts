@@ -13,10 +13,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { QuestionsModalComponent } from './modals/questions-modal/questions-modal.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, QuestionsModalComponent],
+  entryComponents: [QuestionsModalComponent],
   imports: [BrowserModule, HttpClientModule, IonicStorageModule.forRoot(),  IonicModule.forRoot(), AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [
     StatusBar,

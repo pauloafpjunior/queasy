@@ -109,12 +109,12 @@ export class AttemptsPage implements OnInit {
   }
 
   private async saveProfile(numRA: number, numTalents?: number) {
-    this.myProfile.canPractice = true;
-    this.myProfile.numQuizzes++;
     if (numRA == this.questionnaire.numQuest) {
       this.myProfile.num100percentage++;
     }
     if (numTalents) {
+      this.myProfile.numQuizzes++;
+      this.myProfile.canPractice = true;
       this.myProfile.numTalents += numTalents;
     }
     return this.localStorageService.saveProfile(this.myProfile);
@@ -128,7 +128,6 @@ export class AttemptsPage implements OnInit {
     try {
       await loading.present();
       await this.saveData(numRA);
-      loading.dismiss();
 
       if (this.myProfile.isSoundOn) {
         this.nativeAudio.play('finished');
@@ -144,6 +143,7 @@ export class AttemptsPage implements OnInit {
         await this.saveProfile(numRA);
       }
 
+      loading.dismiss();
       const alert = await this.alertController.create({
         header: 'Informação!',
         message: msg,
